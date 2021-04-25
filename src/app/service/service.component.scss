@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  border-radius: 7px;
+  row-gap: 15px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 1.2rem;
+      }
+
+      .description {
+        color: #fff;
+      }
+    }
+
+    .status {
+      background-color: #4b5563;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 5px 10px;
+
+      &.operational {
+        background-color: #15803d;
+        color: lighten(#15803d, 50%);
+      }
+
+      &.incident {
+        background-color: #a16207;
+        color: lighten(#a16207, 50%);
+      }
+    }
+  }
+}

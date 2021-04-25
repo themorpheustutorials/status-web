@@ -1,0 +1,12 @@
+<div class="header">
+  <div class="info">
+    <a [href]="service.url" class="title" rel="noopener" target="_blank">
+      {{ service.name }}
+    </a>
+    <p *ngIf="service.description" class="description">{{ service.description }}</p>
+  </div>
+  <span [class.incident]="state === 'incident'" [class.operational]="state === 'operational'" class="status">
+    {{ state | titlecase }}
+  </span>
+</div>
+<app-service-history [data]="data" [serviceId]="service.id"></app-service-history>

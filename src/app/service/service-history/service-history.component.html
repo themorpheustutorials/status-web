@@ -1,0 +1,23 @@
+<div class="history">
+  <div *ngFor="let ping of data"
+       class="container">
+    <div [class.incident]="ping.state === 'incident'"
+         [class.operational]="ping.state === 'operational'"
+         class="bar"></div>
+    <div class="hover">
+      <b>{{ ping.date | date }}</b>
+
+      <span *ngIf="!ping.locations.length">
+      No Data
+    </span>
+
+      <span *ngFor="let loc of ping.locations">
+      {{ loc.location }}: {{ loc.ping }}ms
+    </span>
+    </div>
+  </div>
+</div>
+<div class="time">
+  <span>90 days ago</span>
+  <span>Today</span>
+</div>
