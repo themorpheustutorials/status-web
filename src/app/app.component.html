@@ -1,4 +1,7 @@
-<h1 class="title">{{ namespace?.name }} Status Page</h1>
+<h1 class="title">
+  <img [src]="'assets/' + (namespace?.name | lowercase) + '.svg'" alt="">
+  {{ namespace?.name }} Status Page
+</h1>
 <div class="services">
   <app-service *ngFor="let service of services" [service]="service"></app-service>
 </div>
