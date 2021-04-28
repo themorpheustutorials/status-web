@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://status.marcelcoding.workers.dev'
+  api: ' https://status.the-morpheus.workers.dev'
 };
 
 /*
