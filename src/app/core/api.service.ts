@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { ApiResponse, LOCATIONS, Namespace, ServiceQuery, Status, StatusLocation } from "./data";
-import { environment } from "../../environments/environment";
-import { tap } from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {ApiResponse, LOCATIONS, Namespace, ServiceQuery, Status, StatusLocation} from "./data";
+import {environment} from "../../environments/environment";
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,13 @@ export class ApiService {
     return new Date(time).toISOString().split('T')[0];
   }
 
+  private static dateRangeOverlaps(aStart: Date, aEnd: Date, bStart: Date, bEnd: Date) {
+    if (aStart <= bStart && bStart <= aEnd) return true; // b starts in a
+    if (aStart <= bEnd && bEnd <= aEnd) return true; // b ends in a
+    if (bStart < aStart && aEnd < bEnd) return true; // a in b
+    return false;
+  }
+
   public getData(serviceId: string): Status[] {
     const service = this.data0?.services?.find(s => s.id === serviceId);
     if (!service) {
@@ -39,7 +46,7 @@ export class ApiService {
 
     const status: Status[] = [];
 
-    let date = Date.now() - ApiService.HISTORY_MS;
+    let date = new Date(new Date().toDateString()).getTime() - ApiService.HISTORY_MS;
     for (let i = 0; i < ApiService.HISTORY_DAYS; i++) {
       date += ApiService.MS_PER_DAY;
       const currDate = ApiService.timeToDate(date);
@@ -57,6 +64,11 @@ export class ApiService {
       });
 
       const incident = pings.find(p => !p.operational)
+        || service.incidents.find(i => i.endTime && ApiService.dateRangeOverlaps(
+          new Date(i.startTime), new Date(i.endTime),
+          new Date(date), new Date(date + ApiService.MS_PER_DAY)
+        ))
+
       const operational = pings.find(p => p.operational)
 
       status.push({
