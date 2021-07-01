@@ -28,6 +28,7 @@
             "assets": [
               "src/favicon.ico",
               "src/cryptic-favicon.ico",
+              "src/secshell-favicon.ico",
               "src/_redirects",
               "src/assets"
             ],
@@ -100,6 +101,7 @@
             "assets": [
               "src/favicon.ico",
               "src/cryptic-favicon.ico",
+              "src/secshell-favicon.ico",
               "src/_redirects",
               "src/assets"
             ],
