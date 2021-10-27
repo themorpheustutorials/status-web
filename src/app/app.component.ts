@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from "./core/api.service";
-import { Namespace, ServiceQuery } from "./core/data";
+import { ApiService } from './core/api.service';
+import { Namespace, ServiceQuery } from './core/data';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
-  constructor(
-    private readonly apiService: ApiService
-  ) {
-  }
+  constructor(private readonly apiService: ApiService) {}
 
   get namespace(): Namespace | undefined {
     return this.apiService.namespace;
@@ -22,8 +18,15 @@ export class AppComponent implements OnInit {
     return this.apiService.services;
   }
 
+  private static getBrand(): string {
+    const hostname = window.location.hostname;
+
+    let tmp = hostname.substring(0, hostname.lastIndexOf('.'));
+    return tmp.substring(tmp.lastIndexOf('.') + 1);
+  }
+
   ngOnInit(): void {
-    const brand = this.getBrand();
+    const brand = AppComponent.getBrand();
     const morpheus = brand === 'the-morpheus';
 
     let link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
@@ -34,24 +37,15 @@ export class AppComponent implements OnInit {
       document.getElementsByTagName('head')[0].appendChild(link);
     }
 
+    this.apiService.loadData();
+
     switch (brand) {
       case 'cryptic-game':
         link!.href = 'cryptic-favicon.ico';
-        this.apiService.loadData('cryptic');
         break;
       case 'secshell':
         link!.href = 'secshell-favicon.ico';
-        this.apiService.loadData('sec_shell');
         break;
-      default:
-        this.apiService.loadData('morpheus');
     }
-  }
-
-  private getBrand(): string {
-    const hostname = window.location.hostname;
-
-    let tmp = hostname.substring(0, hostname.lastIndexOf('.'));
-    return tmp.substring(tmp.lastIndexOf('.') + 1);
   }
 }

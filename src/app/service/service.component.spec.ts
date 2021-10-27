@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ServiceComponent } from './service.component';
 
-describe('StatisComponent', () => {
+describe('ServiceComponent', () => {
   let component: ServiceComponent;
   let fixture: ComponentFixture<ServiceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ServiceComponent]
-    })
-      .compileComponents();
+      declarations: [ServiceComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

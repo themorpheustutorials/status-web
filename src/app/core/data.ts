@@ -226,4 +226,4 @@ export const LOCATIONS: { [location: string]: string } = {
   TLH: 'Tallahassee, FL, United States',
   TPA: 'Tampa, FL, United States',
   HAN: 'Hanoi, Vietnam',
-}
+};

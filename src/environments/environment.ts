@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: ' https://status.the-morpheus.workers.dev'
+  api: '/api',
 };
 
 /*
